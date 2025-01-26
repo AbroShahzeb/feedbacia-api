@@ -25,7 +25,7 @@ import rateLimit from "express-rate-limit";
 configDotenv();
 
 app.get("/", (req, res, next) => {
-  res.json({ message: "Hello from the server" });
+  res.json({ message: "Hello from the feedbacia server" });
 });
 
 connectDB();

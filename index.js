@@ -6,7 +6,11 @@ import xss from "xss-clean";
 import hpp from "hpp";
 const app = express();
 app.use(helmet());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+  })
+);
 
 process.on("uncaughtException", (err) => {
   console.log("UNHANDLED EXCEPTION 🚚! Shutting down...");

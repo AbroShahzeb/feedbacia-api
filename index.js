@@ -38,7 +38,6 @@ app.use(
 );
 
 app.get("/", protect, (req, res, next) => {
-  console.log("cookies", req.cookies);
   res.json({ message: "Hello from the feedbacia server" });
 });
 

@@ -28,7 +28,6 @@ const createSendToken = (user, statusCode, res) => {
   }
 
   res.cookie("jwt", token, cookieOptions);
-  console.log("Cookie Options", cookieOptions);
 
   res.status(statusCode).json({
     status: "success",
@@ -69,13 +68,12 @@ export const protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
 
+  console.log("Token", token);
   if (!token) {
     return next(
       new AppError("You are not logged in, please log in to get access", 401)
     );
   }
-
-  console.log("Token", token);
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 

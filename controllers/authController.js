@@ -25,7 +25,7 @@ const createSendToken = (user, statusCode, res) => {
 
   if (process.env.NODE_ENV === "production") {
     cookieOptions.secure = true;
-    cookieOptions.domain = ".vercel.app";
+    // cookieOptions.domain = ".vercel.app";
   }
 
   res.cookie("jwt", token, cookieOptions);

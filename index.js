@@ -1,10 +1,12 @@
 import express from "express";
+import cors from "cors";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import xss from "xss-clean";
 import hpp from "hpp";
 const app = express();
 app.use(helmet());
+app.use(cors());
 
 process.on("uncaughtException", (err) => {
   console.log("UNHANDLED EXCEPTION 🚚! Shutting down...");

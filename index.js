@@ -8,12 +8,6 @@ import cookieParser from "cookie-parser";
 const app = express();
 app.use(helmet());
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  })
-);
 
 process.on("uncaughtException", (err) => {
   console.log("UNHANDLED EXCEPTION 🚚! Shutting down...");
@@ -32,6 +26,13 @@ import { protect } from "./controllers/authController.js";
 import rateLimit from "express-rate-limit";
 
 configDotenv();
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.get("/", protect, (req, res, next) => {
   console.log("cookies", req.cookies);

@@ -6,8 +6,6 @@ const handleCastErrorDB = (err) => {
 };
 
 const handleDuplicateValueDB = (err) => {
-  console.log(err);
-  console.log("Helllo world");
   const val = err.errorResponse.errmsg.match(/(["'])(\\?.)*?\1/)[0];
   const message = `Duplicate field value ${val}. Please try another one.`;
   return new AppError(message, 400);
@@ -58,8 +56,7 @@ export default (err, req, res, next) => {
   } else if (process.env.NODE_ENV === "production") {
     let error = { ...err };
     if (error.name === "CastError") error = handleCastErrorDB(error);
-    if (error.code === 11000)
-      error = handleDuplicateValueDB(error);
+    if (error.code === 11000) error = handleDuplicateValueDB(error);
     if (error._message === "User validation failed")
       error = handleValidationErrorDB(error);
     if (error.name === "JsonWebTokenError") error = handleJWTInvalidErr();

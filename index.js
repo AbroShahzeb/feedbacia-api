@@ -32,8 +32,7 @@ import rateLimit from "express-rate-limit";
 
 configDotenv();
 
-app.get("/", (req, res, next) => {
-  console.log("reqwuest", req);
+app.get("/", protect, (req, res, next) => {
   console.log("cookies", req.cookies);
   res.json({ message: "Hello from the feedbacia server" });
 });

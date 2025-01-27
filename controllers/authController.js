@@ -63,11 +63,8 @@ export const login = catchAsync(async (req, res, next) => {
 export const protect = catchAsync(async (req, res, next) => {
   let token;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
+  if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
 
   if (!token) {
@@ -75,6 +72,8 @@ export const protect = catchAsync(async (req, res, next) => {
       new AppError("You are not logged in, please log in to get access", 401)
     );
   }
+
+  console.log("Token", token);
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 

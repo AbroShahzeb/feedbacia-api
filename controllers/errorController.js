@@ -12,7 +12,6 @@ const handleDuplicateValueDB = (err) => {
 };
 
 const handleValidationErrorDB = (err) => {
-  console.log("Am I here?");
   const errors = Object.values(err.errors).map((el) => el.message);
   const message = `Invalid input data. ${errors?.join(". ")}`;
   return new AppError(message, 400);
@@ -58,7 +57,10 @@ export default (err, req, res, next) => {
     let error = { ...err, message: err.message };
     if (error.name === "CastError") error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateValueDB(error);
-    if (error._message === "User validation failed")
+    if (
+      error._message === "User validation failed" ||
+      error._message === "Product validation failed"
+    )
       error = handleValidationErrorDB(error);
     if (error.name === "JsonWebTokenError") error = handleJWTInvalidErr();
     if (error.name === "TokenExpiredError") error = handleJWTExpiredError();

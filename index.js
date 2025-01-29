@@ -21,6 +21,7 @@ import AppError from "./utils/appError.js";
 import globalErrorHandler from "./controllers/errorController.js";
 
 import userRoutes from "./routes/userRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 import { protect } from "./controllers/authController.js";
 
 import rateLimit from "express-rate-limit";
@@ -29,10 +30,10 @@ configDotenv();
 
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:5173"
-        : "https://feedbacia.vercel.app",
+    origin: "http://localhost:5173",
+    //   process.env.NODE_ENV === "development"
+    //     ? "http://localhost:5173"
+    //     : "https://feedbacia.vercel.app",
     credentials: true,
   })
 );
@@ -64,6 +65,7 @@ app.use(hpp());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/product", productRoutes);
 
 app.all("*", (req, res, next) => {
   next(

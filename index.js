@@ -30,10 +30,10 @@ configDotenv();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    //   process.env.NODE_ENV === "development"
-    //     ? "http://localhost:5173"
-    //     : "https://feedbacia.vercel.app",
+    origin:
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:5173"
+        : "https://feedbacia.vercel.app",
     credentials: true,
   })
 );
